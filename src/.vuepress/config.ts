@@ -6,7 +6,7 @@ import { alphaTab } from "@coderline/alphatab/vite";
 
 const __dirname = getDirname(import.meta.url);
 export default defineUserConfig({
-  base: "/",
+  base: "/komorebi_blog/",
 
   lang: "zh-CN",
   title: "komorebi的杂物间",
