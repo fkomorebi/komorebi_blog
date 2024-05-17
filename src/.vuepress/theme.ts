@@ -66,9 +66,9 @@ export default hopeTheme({
     comment: {
       provider: "Giscus",
       repo: "fkomorebi/komorebi_blog",
-      repoId: "R_kgDOJg-4IQ",
+      repoId: "R_kgDOL8lFBA",
       category: "General",
-      categoryId: "DIC_kwDOJg-4Ic4CfZE0"
+      categoryId: "DIC_kwDOL8lFBM4Cfa2Y"
     },
 
     components: {
