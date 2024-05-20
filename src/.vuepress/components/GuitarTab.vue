@@ -43,9 +43,9 @@
 </template>
 
 <script setup>
-import { ref, onBeforeUnmount, watchEffect, nextTick } from 'vue'
+import { ref, onBeforeUnmount, watchEffect, nextTick, onMounted } from 'vue'
 import { useFullscreen } from '@vueuse/core'
-import { AlphaTabApi, Settings } from '@coderline/alphatab'
+
 
 const slowSpeed = ref([0.25, 0.5, 0.6, 0.7, 0.8, 0.9])
 const quickSpeed = ref([1.25, 1.5, 2])
@@ -62,20 +62,9 @@ const props = defineProps({
   },
 })
 const currentSpeed = ref(1)
-let api
 
-watchEffect(() => {
-  if (props.file) {
-    if (api == null) {
-      nextTick(async ()=>{
-        await initAlphaTab()
-        api.load(props.file)
-      })
-    } else {
-      api.load(props.file)
-    }
-  }
-})
+let needLoad = false
+let api
 
 const {isFullscreen, enter, exit} = useFullscreen()
 
@@ -105,23 +94,49 @@ function onPrintTab() {
   api?.print()
 }
 
+onMounted(()=>{
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/@coderline/alphatab';
+  script.async = true;
+  script.onload = async()=>{
+    await initAlphaTab()
+    if (needLoad) {
+      api.load(props.file)
+      needLoad = false
+    }
+  }
+  document.head.appendChild(script);
+
+
+  watchEffect(() => {
+    if (props.file) {
+      if (api){
+        api.load(props.file)
+        needLoad = false
+      } else {
+        needLoad = true
+      }
+    }
+  })
+})
+
 onBeforeUnmount(() => {
   api?.destroy()
   api = null
 })
 
 async function initAlphaTab() {
-  const settings = new Settings()
+  const settings = new alphaTab.Settings()
   settings.core.engine = 'svg'
   settings.core.logLevel = 4
-  settings.core.useWorkers = true
+  settings.core.useWorkers = false
   settings.core.fontDirectory = '/komorebi_blog/font/'
   settings.player.enablePlayer = true
   settings.player.enableCursor = true
   settings.player.enableUserInteraction = true
   settings.player.soundFont = '/komorebi_blog/soundfont/sonivox.sf2'
   settings.player.scrollOffsetY = -100
-  api = new AlphaTabApi(guitarTab.value, settings);
+  api = new alphaTab.AlphaTabApi(guitarTab.value, settings);
   api.scoreLoaded.on(() => {
     isLoaded.value = true
   })

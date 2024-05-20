@@ -28,6 +28,7 @@ export default defineClientConfig({
   enhance({ app, router, siteData  }) {
     // register global components
     app.use(ElementPlus)
+
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component)
     }

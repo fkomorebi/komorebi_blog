@@ -1,4 +1,3 @@
-pnpm docs:build
 cd src/.vuepress/dist
 git init
 git branch -m master deploy
