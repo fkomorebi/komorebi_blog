@@ -27,6 +27,9 @@ export default defineUserConfig({
       optimizeDeps: {
         exclude: ['@coderline/alphatab']
       },
+      // build: {
+      //   assetsDir: path.resolve(__dirname, "public")
+      // }
     },
     vuePluginOptions: {}
   })

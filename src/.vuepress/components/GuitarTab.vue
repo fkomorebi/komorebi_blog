@@ -115,11 +115,11 @@ async function initAlphaTab() {
   settings.core.engine = 'svg'
   settings.core.logLevel = 4
   settings.core.useWorkers = true
-  settings.core.fontDirectory = '/font/'
+  settings.core.fontDirectory = '/komorebi_blog/font/'
   settings.player.enablePlayer = true
   settings.player.enableCursor = true
   settings.player.enableUserInteraction = true
-  settings.player.soundFont = '/soundfont/sonivox.sf2'
+  settings.player.soundFont = '/komorebi_blog/soundfont/sonivox.sf2'
   settings.player.scrollOffsetY = -100
   api = new AlphaTabApi(guitarTab.value, settings);
   api.scoreLoaded.on(() => {
