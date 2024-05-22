@@ -6,6 +6,9 @@ import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import ElementPlus from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import { useThemeData } from "vuepress-theme-hope/composables";
+import {computed, getCurrentInstance, nextTick, watchEffect, onMounted } from "vue";
+
 
 export default defineClientConfig({
   // 你可以在这里添加或覆盖布局
@@ -14,6 +17,18 @@ export default defineClientConfig({
     // Layout,
   },
   setup() {
+    const app = getCurrentInstance()
+    const isDarkMode = computed(()=>app.appContext.config.globalProperties.$isDarkmode)
+    onMounted(()=>{
+      watchEffect(()=>{
+        if (isDarkMode.value) {
+          document.documentElement.setAttribute("class", "dark")
+        } else {
+          document.documentElement.setAttribute("class", "light")
+        }
+      })
+    })
+
     setupRunningTimeFooter(
       new Date("2024-05-15"),
       {

@@ -7,9 +7,6 @@
     <el-dialog
         v-model="dialog"
       title="选择曲谱"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
-      :show-close="false"
       center
       class="drawer"
     >
