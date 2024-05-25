@@ -1,5 +1,5 @@
 const prefix = "/komorebi_blog/music_socre"
-const defaultCover = `logo.svg`
+const defaultCover = `/komorebi_blog/logo.svg`
 export default [
   {
     cover: "http://y.qq.com/music/photo_new/T002R300x300M000003GDYMc4W3X5Z_2.jpg?max_age=2592000",
